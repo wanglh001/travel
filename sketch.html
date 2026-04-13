@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>泰国旅行手帐 · 曼谷 + 普吉岛 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --paper: #faf6ee;
+      --paper2: #f5efe2;
+      --ink: #2c2416;
+      --ink-light: #5a4e3a;
+      --ink-faint: #a09070;
+      --red: #c0392b;
+      --blue: #2255aa;
+      --green: #2d7a45;
+      --orange: #d4600a;
+      --purple: #6b3fa0;
+      --yellow-hl: #fff176;
+      --pink-hl: #ffd6d6;
+      --blue-hl: #d6eaff;
+      --green-hl: #d6f5e3;
+      --line: #d4c9b0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Caveat', 'Noto Sans SC', cursive;
+      background: #e8e0d0;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, #ddd5c4 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, #d4cabb 0%, transparent 60%);
+      min-height: 100vh;
+      color: var(--ink);
+    }
+
+    /* SVG rough filter */
+    .svg-filters { position: absolute; width: 0; height: 0; }
+
+    /* ── PAPER TEXTURE ── */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: 4px 4px 20px rgba(0,0,0,0.18), -2px -2px 10px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Notebook lines */
+    .page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        transparent, transparent 31px, var(--line) 31px, var(--line) 32px
+      );
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Red margin line */
+    .page::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 72px;
+      width: 2px;
+      background: rgba(192,57,43,0.2);
+      z-index: 0;
+    }
+
+    .content { position: relative; z-index: 1; padding: 40px 52px 80px 96px; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 48px 0 36px;
+      position: relative;
+    }
+    .hero-deco-top {
+      font-size: 13px;
+      color: var(--ink-faint);
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+      transform: rotate(-1deg);
+      display: inline-block;
+    }
+    .hero h1 {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(40px, 8vw, 72px);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.1;
+      transform: rotate(-1deg);
+      display: inline-block;
+    }
+    .hero h1 .underline {
+      display: inline;
+      background: linear-gradient(transparent 60%, var(--yellow-hl) 60%);
+    }
+    .hero-sub {
+      font-size: 20px;
+      color: var(--ink-light);
+      margin-top: 14px;
+      transform: rotate(0.5deg);
+      display: inline-block;
+    }
+    .hero-tags {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .hero-tag {
+      background: white;
+      border: 2px solid var(--ink);
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      padding: 6px 16px;
+      font-size: 15px;
+      transform: rotate(var(--r, 0deg));
+      box-shadow: 3px 3px 0 var(--ink);
+    }
+
+    /* Stamp */
+    .stamp {
+      display: inline-block;
+      border: 3px solid var(--red);
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 6px 14px;
+      border-radius: 4px;
+      transform: rotate(-8deg);
+      opacity: 0.75;
+      margin-top: 16px;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section { padding: 36px 0 0; }
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, var(--ink) 0px, var(--ink) 6px, transparent 6px, transparent 12px);
+      opacity: 0.3;
+    }
+    .section-icon { font-size: 26px; }
+
+    /* ── WASHI TAPE ── */
+    .washi {
+      display: inline-block;
+      padding: 3px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+      transform: rotate(var(--r, -1.5deg));
+      margin-bottom: 10px;
+    }
+    .washi-yellow { background: #ffe066; color: #5a4000; }
+    .washi-pink { background: #ffb3c6; color: #6a0020; }
+    .washi-blue { background: #a8d8ff; color: #003366; }
+    .washi-green { background: #a8f0c6; color: #004d20; }
+    .washi-purple { background: #d4aaff; color: #3d0066; }
+
+    /* ── ALERT / CALLOUT ── */
+    .callout {
+      border-left: 4px solid var(--ink);
+      padding: 14px 18px;
+      margin: 16px 0;
+      background: white;
+      border-radius: 0 8px 8px 0;
+      position: relative;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.08);
+    }
+    .callout::before {
+      content: attr(data-icon);
+      position: absolute;
+      left: -18px; top: 12px;
+      font-size: 22px;
+      background: white;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+    }
+    .callout-red { border-color: var(--red); background: #fff5f5; }
+    .callout-red .callout-title { color: var(--red); }
+    .callout-orange { border-color: var(--orange); background: #fffaf3; }
+    .callout-orange .callout-title { color: var(--orange); }
+    .callout-blue { border-color: var(--blue); background: #f5f8ff; }
+    .callout-blue .callout-title { color: var(--blue); }
+    .callout-title { font-size: 18px; font-weight: 700; margin-bottom: 5px; }
+    .callout p { font-size: 16px; color: var(--ink-light); line-height: 1.7; }
+    .callout strong { color: var(--ink); }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 38px; top: 12px; bottom: 12px;
+      width: 2px;
+      background: repeating-linear-gradient(180deg, var(--ink-faint) 0px, var(--ink-faint) 8px, transparent 8px, transparent 16px);
+    }
+    .tl-row {
+      display: flex;
+      gap: 20px;
+      padding: 10px 0;
+      align-items: flex-start;
+    }
+    .tl-dot {
+      width: 30px; height: 30px;
+      border: 2.5px solid var(--ink);
+      border-radius: 50%;
+      background: white;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      margin-top: 6px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 2px 2px 0 rgba(0,0,0,0.1);
+    }
+    .tl-dot-filled { background: var(--ink); color: white; }
+    .tl-dot-blue { background: var(--blue-hl); border-color: var(--blue); }
+    .tl-dot-orange { background: #fff3e0; border-color: var(--orange); }
+    .tl-dot-green { background: var(--green-hl); border-color: var(--green); }
+    .tl-dot-purple { background: #f3e8ff; border-color: var(--purple); }
+    .tl-dot-red { background: var(--pink-hl); border-color: var(--red); }
+    .tl-body { flex: 1; padding-top: 4px; }
+    .tl-date {
+      font-size: 13px;
+      color: var(--ink-faint);
+      font-weight: 600;
+      display: inline-block;
+      background: var(--yellow-hl);
+      padding: 1px 8px;
+      border-radius: 3px;
+      margin-bottom: 3px;
+    }
+    .tl-title { font-size: 19px; font-weight: 700; color: var(--ink); }
+    .tl-desc { font-size: 15px; color: var(--ink-light); line-height: 1.7; margin-top: 2px; }
+
+    /* ── SKETCH CARDS ── */
+    .sketch-card {
+      background: white;
+      border: 2px solid var(--ink);
+      border-radius: 255px 8px 225px 8px/8px 225px 8px 255px;
+      padding: 20px 22px;
+      margin: 10px 0;
+      position: relative;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+    }
+    .sketch-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .sketch-card p, .sketch-card li { font-size: 15px; color: var(--ink-light); line-height: 1.75; }
+    .sketch-card ul { padding-left: 20px; }
+
+    /* ── POST-IT NOTES ── */
+    .postit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin: 16px 0; }
+    .postit {
+      padding: 16px 14px;
+      min-height: 120px;
+      position: relative;
+      box-shadow: 3px 4px 10px rgba(0,0,0,0.15), inset 0 -2px 0 rgba(0,0,0,0.08);
+      transform: rotate(var(--r, 0deg));
+      transition: transform 0.2s;
+    }
+    .postit:hover { transform: rotate(0deg) scale(1.03); z-index: 2; }
+    .postit::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 40px; height: 6px;
+      background: rgba(0,0,0,0.12);
+      border-radius: 0 0 3px 3px;
+    }
+    .postit-yellow { background: #fff9c4; }
+    .postit-pink { background: #fce4ec; }
+    .postit-blue { background: #e3f2fd; }
+    .postit-green { background: #e8f5e9; }
+    .postit-orange { background: #fff3e0; }
+    .postit-purple { background: #f3e5f5; }
+    .postit h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+    .postit p, .postit li { font-size: 14px; color: var(--ink-light); line-height: 1.7; }
+    .postit ul { padding-left: 14px; }
+
+    /* ── HANDDRAWN TABLE ── */
+    .htable { width: 100%; border-collapse: collapse; margin: 14px 0; }
+    .htable th {
+      background: var(--ink);
+      color: white;
+      padding: 10px 14px;
+      font-size: 15px;
+      text-align: left;
+      font-weight: 700;
+    }
+    .htable th:first-child { border-radius: 8px 0 0 0; }
+    .htable th:last-child { border-radius: 0 8px 0 0; }
+    .htable td { padding: 10px 14px; font-size: 14px; border-bottom: 1.5px dashed var(--line); color: var(--ink-light); vertical-align: top; }
+    .htable tr:last-child td { border-bottom: none; }
+    .htable tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+    .htable tr:hover td { background: #fffbf0; }
+    .htable-wrap { border: 2px solid var(--ink); border-radius: 10px; overflow: hidden; box-shadow: 4px 4px 0 rgba(0,0,0,0.08); }
+    .td-hl { background: var(--yellow-hl) !important; font-weight: 700; color: var(--ink) !important; }
+    .td-red { color: var(--red) !important; font-weight: 700; }
+    .td-green { color: var(--green) !important; font-weight: 700; }
+    .td-blue { color: var(--blue) !important; font-weight: 700; }
+
+    /* ── STEP LIST ── */
+    .step-list { list-style: none; margin: 12px 0; }
+    .step-item { display: flex; gap: 14px; padding: 9px 0; border-bottom: 1px dashed var(--line); align-items: flex-start; }
+    .step-item:last-child { border-bottom: none; }
+    .step-num {
+      width: 26px; height: 26px; flex-shrink: 0;
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+      background: white;
+      margin-top: 2px;
+    }
+    .step-content strong { display: block; font-size: 16px; font-weight: 700; color: var(--ink); }
+    .step-content p { font-size: 14px; color: var(--ink-light); line-height: 1.65; margin-top: 2px; }
+    .step-tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 1px 8px;
+      border-radius: 3px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* ── FLIGHT SKETCH ── */
+    .flight-sketch {
+      display: flex; align-items: center; gap: 12px;
+      background: white;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 10px 0;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .flight-sketch.pending { border-color: var(--red); background: #fff5f5; }
+    .flight-airport { text-align: center; min-width: 70px; }
+    .flight-airport .code { font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1; }
+    .flight-airport .time { font-size: 14px; color: var(--ink-faint); }
+    .flight-airport .city { font-size: 12px; color: var(--ink-faint); }
+    .flight-middle { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .flight-line-svg { width: 100%; }
+    .flight-info { font-size: 13px; color: var(--ink-light); }
+    .flight-badge {
+      position: absolute;
+      top: -10px; right: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border: 2px solid currentColor;
+      border-radius: 4px;
+      background: white;
+      transform: rotate(1.5deg);
+    }
+    .badge-warning { color: var(--red); border-color: var(--red); background: var(--pink-hl); }
+    .badge-ok { color: var(--green); border-color: var(--green); background: var(--green-hl); }
+
+    /* ── GRID ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } .content { padding: 30px 20px 60px 30px; } }
+
+    /* ── DIVIDER ── */
+    .divider { margin: 32px 0; display: flex; align-items: center; gap: 12px; color: var(--ink-faint); font-size: 20px; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1.5px; background: repeating-linear-gradient(90deg, var(--ink-faint) 0px, var(--ink-faint) 4px, transparent 4px, transparent 10px); }
+
+    /* ── HIGHLIGHT TEXT ── */
+    .hl-yellow { background: var(--yellow-hl); padding: 0 3px; }
+    .hl-pink { background: var(--pink-hl); padding: 0 3px; }
+    .hl-blue { background: var(--blue-hl); padding: 0 3px; }
+    .hl-green { background: var(--green-hl); padding: 0 3px; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; }
+    .checklist li { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 15px; color: var(--ink-light); align-items: flex-start; }
+    .checklist li:last-child { border-bottom: none; }
+    .check-box {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border: 2px solid var(--ink);
+      border-radius: 3px;
+      margin-top: 3px;
+    }
+    .check-box.done::after { content: '✓'; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--green); margin-top: -2px; }
+    .check-box.urgent { border-color: var(--red); background: var(--pink-hl); }
+
+    /* ── PHOTO SPOT CARDS ── */
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 12px; margin: 14px 0; }
+    .photo-card {
+      background: white;
+      border: 1.5px solid var(--ink);
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.07);
+      transform: rotate(var(--r, 0deg));
+    }
+    .photo-card:hover { transform: rotate(0deg) scale(1.02); z-index: 2; position: relative; }
+    .photo-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+    .photo-card h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .photo-card p { font-size: 12px; color: var(--ink-faint); line-height: 1.6; }
+    .photo-time { display: inline-block; font-size: 11px; font-weight: 700; background: var(--yellow-hl); padding: 1px 6px; border-radius: 3px; margin-top: 6px; color: var(--ink); }
+
+    /* ── PAGE NUMBER ── */
+    .page-num {
+      text-align: right;
+      font-size: 12px;
+      color: var(--ink-faint);
+      margin-top: 10px;
+      margin-bottom: -10px;
+    }
+
+    /* ── CORNER DECO ── */
+    .corner-deco {
+      position: absolute;
+      font-size: 32px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG Filter for rough edges -->
+<svg class="svg-filters">
+  <defs>
+    <filter id="rough">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<div class="page">
+<div class="content">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="corner-deco" style="top:20px;left:10px;">✈</div>
+    <div class="corner-deco" style="top:20px;right:10px;">🌴</div>
+    <div class="hero-deco-top">✈ &nbsp; MY TRAVEL JOURNAL &nbsp; 2025 ✈</div>
+    <h1><span class="underline">泰国</span>旅行手帐</h1>
+    <div class="hero-sub">🗓 5月2日 — 5月10日 &nbsp;·&nbsp; 曼谷 + 普吉岛</div>
+    <div class="hero-tags">
+      <span class="hero-tag" style="--r:-2deg">✈ 北京出发</span>
+      <span class="hero-tag" style="--r:1.5deg">🤿 OW深潜</span>
+      <span class="hero-tag" style="--r:-1deg">🏝 斯米兰浮潜</span>
+      <span class="hero-tag" style="--r:2deg">🛕 古城漫步</span>
+      <span class="hero-tag" style="--r:-1.5deg">🌅 普吉日落</span>
+    </div>
+    <div class="stamp">5 Days Bangkok · 4 Days Phuket</div>
+  </div>
+
+  <!-- IMPORTANT ALERTS -->
+  <div class="section">
+    <div class="callout callout-red" data-icon="🚨" style="margin-left:10px;">
+      <div class="callout-title">⚠️ 待办：立即购买 5.9 普吉岛 → 曼谷 航班！</div>
+      <p>返程 <strong>MF844</strong> 凌晨 01:50 从 <span class="hl-yellow">曼谷 BKK</span> 出发，不是从普吉岛出发。需在 5.9 傍晚乘 <strong>HKT → BKK</strong>（建议 17:00–19:00 时段，约 300–800 THB），20:00–21:00 抵达 BKK，23:00 前完成值机。</p>
+    </div>
+    <div class="callout callout-orange" data-icon="⏰" style="margin-left:10px; margin-top:20px;">
+      <div class="callout-title">斯米兰岛 5月中旬关闭，5.7 是最后窗口期！</div>
+      <p>务必 <strong>现在</strong> 通过 Klook / Viator 提前 3–5 天预订，名额有限，拖不得。</p>
+    </div>
+  </div>
+
+  <div class="divider">✦</div>
+
+  <!-- ITINERARY OVERVIEW -->
+  <div class="section">
+    <div class="washi washi-yellow" style="--r:-1.5deg">全程行程总览</div>
+    <div class="section-title"><span class="section-icon">🗓</span>9 天行程时间轴</div>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-blue">✈</div>
+        <div class="tl-body">
+          <span class="tl-date">5月2日（周五）出发</span>
+          <div class="tl-title">北京大兴 → 厦门 → 曼谷 BKK 抵达</div>
+          <div class="tl-desc">MF8118 11:05 PKX → MF863 16:20 XMN → <span class="hl-yellow">18:45 抵达素万那普</span>。建议 ARL 快轨进城避开晚高峰。</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-orange">🛕</div>
+        <div class="tl-body">
+          <span class="tl-date">5月3日（周六）曼谷 Day 1</span>
+          <div class="tl-title">古城历史 + 文化沉浸路线</div>
+          <div class="tl-desc">卧佛寺 → 大皇宫 → 郑王庙（日落打卡）→ 中国城 Yaowarat 夜市</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-blue">🛍</div>
+        <div class="tl-body">
+          <span class="tl-date">5月4日（周日）曼谷 Day 2</span>
+          <div class="tl-title">现代曼谷 + 潮流街区路线</div>
+          <div class="tl-desc">Siam 商圈 → Terminal 21 → 金山寺 → Ong Ang 步行街 → Jodd Fairs 夜市</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-green">🏝</div>
+        <div class="tl-body">
+          <span class="tl-date">5月5日（周一）转场</span>
+          <div class="tl-title">飞往普吉岛 → 海滩放松 + 日落</div>
+          <div class="tl-desc">BKK → HKT 约 1.5h，入住 → 卡塔/卡伦海滩 → 西海岸日落 → Bangla Road 夜市</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-blue">🤿</div>
+        <div class="tl-body">
+          <span class="tl-date">5月6日（周二）深潜日</span>
+          <div class="tl-title">Fun Dive 深潜（OW 证书持有者直接报名）</div>
+          <div class="tl-desc">拉差岛双潜 / Shark Point 豹鲨，约 3500–5000 THB，可升级夜潜</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-purple">🌊</div>
+        <div class="tl-body">
+          <span class="tl-date">5月7日（周三）斯米兰</span>
+          <div class="tl-title">斯米兰岛浮潜一日游</div>
+          <div class="tl-desc">05:00 接送 → 4/7/9/8 号岛 → 能见度 30m+ → 17:00 返回，<span class="hl-pink">务必提前预订！</span></div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-orange">🏛</div>
+        <div class="tl-body">
+          <span class="tl-date">5月8日（周四）文化日</span>
+          <div class="tl-title">查龙寺 + 普吉老城区漫步</div>
+          <div class="tl-desc">查龙寺（免费）→ 普吉大佛（需确认重开）→ 老城中葡建筑 → Naka Market 夜市</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-red">⚠️</div>
+        <div class="tl-body">
+          <span class="tl-date">5月9日（周五）关键节点</span>
+          <div class="tl-title">SPA + 购物 → 傍晚飞回曼谷候机</div>
+          <div class="tl-desc">海滩 → SPA → Jungceylon 购物 → <span class="hl-pink">17:00 出发赴 HKT → 20:00+ 抵 BKK → 凌晨候机</span></div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-dot tl-dot-filled">🏠</div>
+        <div class="tl-body">
+          <span class="tl-date">5月10日（周六）返程</span>
+          <div class="tl-title">曼谷 → 厦门 → 北京大兴，回家！</div>
+          <div class="tl-desc">MF844 01:50 BKK → MF8127 09:00 XMN → <span class="hl-green">11:55 抵达北京大兴</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">✈</div>
+
+  <!-- BANGKOK TRANSPORT -->
+  <div class="section">
+    <div class="washi washi-blue" style="--r:1deg">机场交通</div>
+    <div class="section-title"><span class="section-icon">🚆</span>素万那普机场 → 市区</div>
+    <div class="callout callout-blue" data-icon="💡" style="margin-bottom:16px; margin-left:10px;">
+      <div class="callout-title">推荐：ARL 机场快轨</div>
+      <p>18:45 抵达正值晚高峰，<span class="hl-yellow">ARL 约 45 泰铢，30 分钟</span>到 Phaya Thai 换 BTS，最快捷避堵方案。</p>
+    </div>
+    <div class="htable-wrap">
+      <table class="htable">
+        <thead><tr><th>交通方式</th><th>费用</th><th>时间</th><th>适合</th></tr></thead>
+        <tbody>
+          <tr><td class="td-hl">🚆 ARL 机场快轨</td><td class="td-green">约 45 THB</td><td>30 分钟</td><td>住 Sukhumvit / Siam</td></tr>
+          <tr><td>🚕 出租车（计价器）</td><td>300–500 THB + 附加费</td><td>45–90 分钟</td><td>行李多、直达</td></tr>
+          <tr><td>📱 GrabCar</td><td>约 400–700 THB</td><td>45–90 分钟</td><td>价格透明</td></tr>
+          <tr><td>🚐 预订接机</td><td>约 500–800 THB</td><td>45–90 分钟</td><td>举牌接机最省心</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider">✦</div>
+
+  <!-- BANGKOK CITYWALK -->
+  <div class="section">
+    <div class="washi washi-yellow" style="--r:-1deg">曼谷漫步</div>
+    <div class="section-title"><span class="section-icon">🛕</span>Day 1 · 古城历史路线</div>
+
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--orange); background:#fff3e0;">1</div>
+        <div class="step-content">
+          <strong>Wat Pho 卧佛寺</strong>
+          <p>MRT 蓝线 Sanam Chai 站步行可达。46 米镀金卧佛，视觉震撼。约 1–1.5 小时。</p>
+          <span class="step-tag" style="background:var(--green-hl);color:var(--green);">免费区域 + 门票</span>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--orange); background:#fff3e0;">2</div>
+        <div class="step-content">
+          <strong>大皇宫 Grand Palace</strong>
+          <p>卧佛寺步行 5 分钟，金碧辉煌必去，注意着装需盖肩盖膝，可现场借围布。约 1.5–2 小时。</p>
+          <span class="step-tag" style="background:var(--pink-hl);color:var(--red);">着装要求严格</span>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--blue); background:var(--blue-hl);">3</div>
+        <div class="step-content">
+          <strong>渡船 → 郑王庙 Wat Arun ⭐</strong>
+          <p>渡船约 3 泰铢。<span class="hl-yellow">16:00–18:00 黄金光线最佳拍照时间</span>，可登庙俯瞰湄南河全景。</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--purple); background:#f3e8ff;">4</div>
+        <div class="step-content">
+          <strong>Charoen Krung 查恩隆路漫步</strong>
+          <p>Warehouse 30 工业风艺术空间 · River City Bangkok 古董艺术商场 · 32 街头壁画</p>
+        </div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--red); background:var(--pink-hl);">🌙</div>
+        <div class="step-content">
+          <strong>中国城 Yaowarat 耀华力路夜市</strong>
+          <p>霓虹闪烁，海鲜烧烤、烤猪脚、芒果糯米饭。<span class="hl-yellow">夜晚 20:00+ 最佳打卡</span>，MRT Hua Lamphong。</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="section-title" style="margin-top:32px;"><span class="section-icon">🛍</span>Day 2 · 现代潮流路线</div>
+    <ul class="step-list">
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--blue); background:var(--blue-hl);">1</div>
+        <div class="step-content"><strong>暹罗区 Siam 商圈</strong><p>Siam Center 潮流 · Siam Discovery 设计感 · Siam Paragon 奢品 + SEA LIFE 海洋馆</p></div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--blue); background:var(--blue-hl);">2</div>
+        <div class="step-content"><strong>Terminal 21 Asok</strong><p>每层对应世界城市主题，地下美食广场超便宜</p></div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--orange); background:#fff3e0;">3</div>
+        <div class="step-content"><strong>金山寺 Wat Saket 登顶</strong><p>俯瞰整个旧城区，<span class="hl-yellow">黄昏 16:00–18:00 光线绝佳</span></p></div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--purple); background:#f3e8ff;">4</div>
+        <div class="step-content"><strong>Ong Ang 步行街</strong><p>涂鸦艺术 · 街头表演 · 韩剧《King the Land》取景地</p></div>
+      </li>
+      <li class="step-item">
+        <div class="step-num" style="border-color:var(--red); background:var(--pink-hl);">🌙</div>
+        <div class="step-content"><strong>Jodd Fairs 乔德夜市</strong><p>最热门网红夜市，XXL 火山猪肋排，各国小吃。BTS On Nut 站打车。</p></div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="divider">🌙</div>
+
+  <!-- NIGHT MARKETS -->
+  <div class="section">
+    <div class="washi washi-pink" style="--r:-1deg">曼谷夜市</div>
+    <div class="section-title"><span class="section-icon">🏮</span>6 大夜市速查</div>
+    <div class="htable-wrap">
+      <table class="htable">
+        <thead><tr><th>夜市名</th><th>核心特色</th><th>交通</th></tr></thead>
+        <tbody>
+          <tr><td class="td-hl">🔥 Jodd Fairs</td><td>最热门，XXL 火山猪肋排，网红食物</td><td>BTS On Nut 打车</td></tr>
+          <tr><td>🏮 中国城 Yaowarat</td><td>最地道，海鲜烤肉，霓虹夜景</td><td>MRT Hua Lamphong</td></tr>
+          <tr><td>🎡 Asiatique 河畔</td><td>摩天轮 + 河景，购物餐厅混合</td><td>BTS Saphan Taksin 接驳船</td></tr>
+          <tr><td>🌊 ICONSIAM 漂浮市集</td><td>室内空调舒适，泰风产品</td><td>BTS Gold Line</td></tr>
+          <tr><td>📸 拉差达 The One</td><td>白色极简，网红拍照胜地</td><td>MRT Cultural Centre</td></tr>
+          <tr><td>🎒 Khao San Road</td><td>背包客圣地，热闹外国游客多</td><td>打车前往</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider">✦</div>
+
+  <!-- PHOTO SPOTS -->
+  <div class="section">
+    <div class="washi washi-purple" style="--r:1.5deg">拍照打卡</div>
+    <div class="section-title"><span class="section-icon">📸</span>曼谷 10 处机位</div>
+    <div class="photo-grid">
+      <div class="photo-card" style="--r:-1.5deg"><span class="photo-icon">🛕</span><h4>郑王庙对岸河边</h4><p>庙宇全景 + 河面倒影</p><span class="photo-time">日落 16–18 点</span></div>
+      <div class="photo-card" style="--r:1deg"><span class="photo-icon">🍽</span><h4>The Deck by Arun</h4><p>隔河拍郑王庙，餐厅高角度</p><span class="photo-time">日落时分</span></div>
+      <div class="photo-card" style="--r:-0.5deg"><span class="photo-icon">☸️</span><h4>卧佛寺佛巷子</h4><p>窄巷前景虚化，层次感强</p><span class="photo-time">上午光线</span></div>
+      <div class="photo-card" style="--r:2deg"><span class="photo-icon">🏔</span><h4>金山寺顶</h4><p>俯瞰旧城全景，黄昏橙色</p><span class="photo-time">黄昏日落</span></div>
+      <div class="photo-card" style="--r:-1deg"><span class="photo-icon">🏢</span><h4>像素大厦</h4><p>几何建筑 + BTS 轻轨穿梭</p><span class="photo-time">白天任意</span></div>
+      <div class="photo-card" style="--r:1.5deg"><span class="photo-icon">🪞</span><h4>Siam 倒影天桥</h4><p>极简镜面反光，对称构图</p><span class="photo-time">白天</span></div>
+      <div class="photo-card" style="--r:-2deg"><span class="photo-icon">🏮</span><h4>中国城路口</h4><p>霓虹招牌 + 人群涌动</p><span class="photo-time">夜晚 20 点后</span></div>
+      <div class="photo-card" style="--r:0.5deg"><span class="photo-icon">🎨</span><h4>Ong Ang 涂鸦墙</h4><p>彩色街头艺术，人物感强</p><span class="photo-time">白天</span></div>
+      <div class="photo-card" style="--r:-1deg"><span class="photo-icon">🏭</span><h4>Warehouse 30</h4><p>工业风改造，清水泥质感</p><span class="photo-time">白天</span></div>
+      <div class="photo-card" style="--r:1.5deg"><span class="photo-icon">🖌</span><h4>Charoen Krung 32</h4><p>鲜艳街头彩绘，色彩饱满</p><span class="photo-time">白天</span></div>
+    </div>
+  </div>
+
+  <div class="divider">🏝</div>
+
+  <!-- PHUKET -->
+  <div class="section">
+    <div class="washi washi-green" style="--r:-1deg">普吉岛</div>
+    <div class="section-title"><span class="section-icon">🏝</span>普吉岛行程（5.5–5.9）</div>
+
+    <div class="grid-2" style="margin-bottom:20px;">
+      <div class="sketch-card">
+        <h3>🤿 5.6 深潜 Fun Dive</h3>
+        <ul class="step-list" style="margin-top:8px;">
+          <li class="step-item"><div class="step-num" style="border-color:var(--blue);background:var(--blue-hl);">▲</div><div class="step-content"><strong>拉差岛 Racha Yai（推荐）</strong><p>初中级友好，水清鱼多，可见海龟。双潜 3500–5000 THB。</p></div></li>
+          <li class="step-item"><div class="step-num" style="border-color:var(--purple);background:#f3e8ff;">▲</div><div class="step-content"><strong>Shark Point 鲨鱼角</strong><p>可见豹鲨，更刺激，进阶选择</p></div></li>
+          <li class="step-item"><div class="step-num" style="border-color:var(--ink-faint);">★</div><div class="step-content"><strong>升级：夜潜 Night Dive</strong><p>完全不同的水下世界体验</p></div></li>
+        </ul>
+        <div class="callout callout-blue" data-icon="📍" style="margin-top:12px;padding:10px 14px;">
+          <div class="callout-title" style="font-size:14px;">推荐潜水店</div>
+          <p style="font-size:13px;">Rumblefish Adventure Thailand（卡塔）<br/>PADI 五星潜店（芭东/卡伦）<br/>提前 1–2 天预订，确认有中文教练</p>
+        </div>
+      </div>
+
+      <div class="sketch-card">
+        <h3>🌊 5.7 斯米兰岛浮潜</h3>
+        <div class="callout callout-orange" data-icon="⚠️" style="margin-bottom:10px;padding:10px 14px;">
+          <p style="font-size:13px;"><strong>5月中旬关闭，现在必须预订！</strong><br/>Klook / Viator，2300–5450 THB，含接送+快艇+门票+装备+早午餐</p>
+        </div>
+        <ul class="step-list">
+          <li class="step-item"><div class="step-num" style="font-size:11px;border-color:var(--ink-faint);">05:</div><div class="step-content"><strong>酒店接送出发</strong><p>08:00–09:00 从 Thap Lamu 码头快艇出发</p></div></li>
+          <li class="step-item"><div class="step-num" style="border-color:var(--blue);background:var(--blue-hl);">4</div><div class="step-content"><strong>4 号岛 Miang</strong><p>白净沙滩，有餐厅设施</p></div></li>
+          <li class="step-item"><div class="step-num" style="border-color:var(--blue);background:var(--blue-hl);">7/9</div><div class="step-content"><strong>7/9 号岛 最佳浮潜点</strong><p>珊瑚密集，能见度 30m+</p></div></li>
+          <li class="step-item"><div class="step-num" style="border-color:var(--green);background:var(--green-hl);">8</div><div class="step-content"><strong>8 号岛帆船岩 Sail Rock</strong><p>登顶 360° 全景，可见蝠鲼/海龟</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5.8 -->
+    <div class="sketch-card" style="margin-bottom:16px;">
+      <h3>🏛 5.8 普吉岛本地探索</h3>
+      <div class="grid-2" style="margin-top:12px;">
+        <div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:8px;color:var(--orange);">上午</div>
+          <ul class="checklist">
+            <li><div class="check-box"></div><span><strong>查龙寺 Wat Chalong</strong> — 最大最神圣，免费</span></li>
+            <li><div class="check-box"></div><span>普吉大佛 — <span class="hl-pink">需确认是否重开（2024年8月暂闭）</span></span></li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:8px;color:var(--blue);">下午 & 晚上</div>
+          <ul class="checklist">
+            <li><div class="check-box"></div><span>普吉老城 Thalang Road 中葡建筑漫步</span></li>
+            <li><div class="check-box"></div><span>Romanee Lane 街头壁画打卡</span></li>
+            <li><div class="check-box"></div><span>特色咖啡馆下午茶</span></li>
+            <li><div class="check-box"></div><span>Naka Market / Chillva Market 夜市</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5.9 CRITICAL -->
+    <div class="callout callout-red" data-icon="🚨" style="margin-left:10px;">
+      <div class="callout-title">5.9（周五）关键时间节点</div>
+      <p>
+        上午：海滩晨跑 / 游泳 &nbsp;→&nbsp;
+        上午：SPA 泰式按摩（200–400 THB/h）&nbsp;→&nbsp;
+        下午：Jungceylon 购物 &nbsp;→&nbsp;
+        <span class="hl-yellow">15:00–16:00 打包行李</span> &nbsp;→&nbsp;
+        <span class="hl-pink">17:00–18:00 出发赴 HKT 机场</span> &nbsp;→&nbsp;
+        乘 <strong>17:00–19:00 HKT → BKK 航班</strong>（约 300–800 THB）&nbsp;→&nbsp;
+        <span class="hl-yellow">20:00–21:00 抵达 BKK</span> &nbsp;→&nbsp;
+        23:00 前完成 MF844 值机 &nbsp;→&nbsp;
+        凌晨 01:50 起飞！
+      </p>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div style="font-size:16px;font-weight:700;margin-bottom:10px;">🛍 普吉购物必买清单</div>
+      <div class="postit-grid">
+        <div class="postit postit-yellow" style="--r:-1.5deg"><h4>食品伴手礼</h4><ul><li>泰式咖喱包</li><li>芒果干 / 菠萝蜜干</li><li>泰式辣酱</li><li>椰糖小零食</li></ul></div>
+        <div class="postit postit-pink" style="--r:1deg"><h4>美妆药妆</h4><ul><li>BOOTS 护肤品</li><li>Sniff 泰国香水</li><li>芦荟胶 / 精油</li><li>面膜套装</li></ul></div>
+        <div class="postit postit-blue" style="--r:-0.5deg"><h4>时尚配件</h4><ul><li>Naraya 尼龙包</li><li>手工编织品</li><li>泰丝产品</li></ul></div>
+        <div class="postit postit-green" style="--r:2deg"><h4>纪念品</h4><ul><li>大象木雕</li><li>泰式香薰蜡烛</li><li>手工肥皂</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">✈</div>
+
+  <!-- FLIGHTS -->
+  <div class="section">
+    <div class="washi washi-blue" style="--r:-1deg">航班确认</div>
+    <div class="section-title"><span class="section-icon">✈️</span>全程 5 段航班</div>
+
+    <div class="flight-sketch">
+      <div class="flight-airport"><div class="code">PKX</div><div class="time">11:05</div><div class="city">北京大兴</div></div>
+      <div class="flight-middle">
+        <div class="flight-info">MF8118 · 约 2h45m</div>
+        <svg class="flight-line-svg" height="24" viewBox="0 0 200 24"><line x1="0" y1="12" x2="170" y2="12" stroke="#2c2416" stroke-width="1.5" stroke-dasharray="6,4"/><text x="176" y="16" font-size="16">✈</text></svg>
+      </div>
+      <div class="flight-airport"><div class="code">XMN</div><div class="time">13:50</div><div class="city">厦门</div></div>
+      <div class="flight-badge badge-ok">5.2 出发</div>
+    </div>
+
+    <div class="flight-sketch" style="margin-top:8px;">
+      <div class="flight-airport"><div class="code">XMN</div><div class="time">16:20</div><div class="city">厦门</div></div>
+      <div class="flight-middle">
+        <div class="flight-info">MF863 · 约 3h25m</div>
+        <svg class="flight-line-svg" height="24" viewBox="0 0 200 24"><line x1="0" y1="12" x2="170" y2="12" stroke="#2c2416" stroke-width="1.5" stroke-dasharray="6,4"/><text x="176" y="16" font-size="16">✈</text></svg>
+      </div>
+      <div class="flight-airport"><div class="code">BKK</div><div class="time">18:45</div><div class="city">曼谷</div></div>
+      <div class="flight-badge badge-ok">5.2 中转</div>
+    </div>
+
+    <div class="flight-sketch pending" style="margin-top:8px;">
+      <div class="flight-airport"><div class="code" style="color:var(--red);">HKT</div><div class="time" style="color:var(--red);">待定</div><div class="city">普吉岛</div></div>
+      <div class="flight-middle">
+        <div class="flight-info" style="color:var(--red);font-weight:700;">⚠️ 待购买 · 约 1.5h</div>
+        <svg class="flight-line-svg" height="24" viewBox="0 0 200 24"><line x1="0" y1="12" x2="170" y2="12" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/><text x="176" y="16" font-size="16">✈</text></svg>
+      </div>
+      <div class="flight-airport"><div class="code" style="color:var(--red);">BKK</div><div class="time" style="color:var(--red);">~20:00</div><div class="city">曼谷</div></div>
+      <div class="flight-badge badge-warning">5.9 待购！</div>
+    </div>
+
+    <div class="flight-sketch" style="margin-top:8px;">
+      <div class="flight-airport"><div class="code">BKK</div><div class="time">01:50</div><div class="city">曼谷</div></div>
+      <div class="flight-middle">
+        <div class="flight-info">MF844 · 约 4h25m</div>
+        <svg class="flight-line-svg" height="24" viewBox="0 0 200 24"><line x1="0" y1="12" x2="170" y2="12" stroke="#2c2416" stroke-width="1.5" stroke-dasharray="6,4"/><text x="176" y="16" font-size="16">✈</text></svg>
+      </div>
+      <div class="flight-airport"><div class="code">XMN</div><div class="time">06:15</div><div class="city">厦门</div></div>
+      <div class="flight-badge badge-ok">5.10 凌晨</div>
+    </div>
+
+    <div class="flight-sketch" style="margin-top:8px;">
+      <div class="flight-airport"><div class="code">XMN</div><div class="time">09:00</div><div class="city">厦门</div></div>
+      <div class="flight-middle">
+        <div class="flight-info">MF8127 · 约 2h55m</div>
+        <svg class="flight-line-svg" height="24" viewBox="0 0 200 24"><line x1="0" y1="12" x2="170" y2="12" stroke="#2c2416" stroke-width="1.5" stroke-dasharray="6,4"/><text x="176" y="16" font-size="16">✈</text></svg>
+      </div>
+      <div class="flight-airport"><div class="code">PKX</div><div class="time">11:55</div><div class="city">北京大兴</div></div>
+      <div class="flight-badge badge-ok">5.10 到家 🎉</div>
+    </div>
+  </div>
+
+  <div class="divider">✦</div>
+
+  <!-- TIPS -->
+  <div class="section">
+    <div class="washi washi-orange" style="--r:1deg; background:#ffcc80; color:#5a3000;">实用贴士</div>
+    <div class="section-title"><span class="section-icon">💡</span>出行必知</div>
+
+    <div class="postit-grid">
+      <div class="postit postit-yellow" style="--r:-1deg">
+        <h4>💴 货币 & 支付</h4>
+        <p>1 人民币 ≈ 4.7 泰铢。建议国内换好 THB，市场小吃多为现金，商场刷卡。</p>
+      </div>
+      <div class="postit postit-blue" style="--r:1.5deg">
+        <h4>🌦 气候 & 着装</h4>
+        <p>5月已入雨季，28–36°C，偶有阵雨。带防晒、速干衣、折叠伞。进寺庙遮肩遮膝。</p>
+      </div>
+      <div class="postit postit-green" style="--r:-0.5deg">
+        <h4>📱 必备 App</h4>
+        <p><strong>Grab</strong>：打车必备，价格透明。<strong>Rabbit Card</strong>：BTS/MRT 多程优惠卡。</p>
+      </div>
+      <div class="postit postit-pink" style="--r:2deg">
+        <h4>🗓 订票清单</h4>
+        <ul><li>斯米兰：Klook 提前 3–5 天</li><li>深潜：提前 1–2 天联系潜店</li><li>HKT→BKK：立即购买！</li></ul>
+      </div>
+      <div class="postit postit-orange" style="--r:-1.5deg">
+        <h4>🤿 潜水注意</h4>
+        <p>使用环保防晒霜（reef-safe）。禁止触碰珊瑚，禁止带走沙石。</p>
+      </div>
+      <div class="postit postit-purple" style="--r:1deg">
+        <h4>⏰ 关键时间</h4>
+        <p>MF844 国际航班，提前 3 小时值机（23:00 前）。普吉大佛需提前确认是否重开。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER DECO -->
+  <div style="text-align:center; margin-top:60px; color:var(--ink-faint); font-size:15px;">
+    <div style="font-size:32px; margin-bottom:10px;">🇹🇭</div>
+    <div>泰国旅行手帐 · 曼谷 + 普吉岛 · 2025年5月</div>
+    <div style="margin-top:6px; font-size:13px;">Have a wonderful trip! สนุกในการเดินทาง！</div>
+    <div style="margin-top:24px; font-size:12px; opacity:0.5;">✈ &nbsp; ✦ &nbsp; 🏝 &nbsp; ✦ &nbsp; 🤿 &nbsp; ✦ &nbsp; 🛕 &nbsp; ✦ &nbsp; 🌅</div>
+  </div>
+  <div class="page-num">— 旅行手帐 · 2025 —</div>
+
+</div><!-- end content -->
+</div><!-- end page -->
+
+</body>
+</html>
